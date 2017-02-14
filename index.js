@@ -4,7 +4,7 @@ var axios = require('axios')
 var cheerio = require('cheerio')
 
 var pathSet = new Set()
-
+// var cnt = 0
 var dfs = function (path) {
     if (pathSet.has(path)) return
     else {
@@ -13,14 +13,16 @@ var dfs = function (path) {
             .then((res) => {
                 let $ = cheerio.load(res.data)
                 if ($('#wikiArticle').html()) {
+                    $('article .breadcrumbs').remove()
                     let content = $('#wikiArticle').html()
                     let title = $('body').attr('data-slug').split('/').join('-').substr("Web-JavaScript-Reference-".length)
+                    // if (cnt++ > 2) process.exit(0)
                     fs.writeFile(`dist/${title}.md`, content, (err) => {
                         if (err) throw err
                         console.log(`${title}.md is saved`)
                     })
-                    $('a').each(function () {
-                        if (/\/zh-CN\/docs\/Web\/JavaScript\/Reference.*/.test($(this).attr('href'))) dfs($(this).attr('href'))
+                    $('#quick-links a').each(function () {
+                        if (/\/zh-CN\/docs\/Web\/JavaScript\/Reference\/.*/.test($(this).attr('href'))) dfs($(this).attr('href'))
                     })
                 }
             })
@@ -29,4 +31,4 @@ var dfs = function (path) {
             })
     }
 }
-dfs('/zh-CN/docs/Web/JavaScript/Reference/Global_Objects')
+dfs('/zh-CN/docs/Web/JavaScript/Reference')

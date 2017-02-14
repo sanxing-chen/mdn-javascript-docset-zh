@@ -1,0 +1,16 @@
+{
+  "name": "mdn-javascript-docset-zh",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "STay Chan",
+  "license": "MIT",
+  "devDependencies": {
+    "axios": "^0.15.3",
+    "cheerio": "^0.22.0",
+    "to-markdown": "^3.0.3"
+  }
+}

@@ -14,7 +14,7 @@ var dfs = function (path) {
                 let $ = cheerio.load(res.data)
                 if ($('#wikiArticle').html()) {
                     let content = $('#wikiArticle').html()
-                    let title = $('body').attr('data-slug').split('/').join('-')
+                    let title = $('body').attr('data-slug').split('/').join('-').substr("Web-JavaScript-Reference-".length)
                     fs.writeFile(`dist/${title}.md`, content, (err) => {
                         if (err) throw err
                         console.log(`${title}.md is saved`)
@@ -25,18 +25,8 @@ var dfs = function (path) {
                 }
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 }
 dfs('/zh-CN/docs/Web/JavaScript/Reference/Global_Objects')
-// axios.get('https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects')
-//     .then((res) => {
-//         var $ = cheerio.load(res.data)
-//         var content = toMD($('.onlyinclude').html())
-//         var title = $('body').attr('data-slug').split('/').join('-')
-//         fs.writeFile(`dist/${title}.md`, content, (err) => {
-//             if (err) throw err
-//             console.log(`${title}.md is saved`)
-//         })
-//     })

@@ -13,11 +13,11 @@ var dfs = function (path) {
             .then((res) => {
                 let $ = cheerio.load(res.data)
                 if ($('#wikiArticle').html()) {
-                    let content = toMD($('#wikiArticle').html())
+                    let content = $('#wikiArticle').html()
                     let title = $('body').attr('data-slug').split('/').join('-')
-                    fs.writeFile(`dist/${title}.md`, content, (err) => {
+                    fs.writeFile(`dist/${title}.html`, content, (err) => {
                         if (err) throw err
-                        console.log(`${title}.md is saved`)
+                        console.log(`${title}.html is saved`)
                     })
                     $('a').each(function () {
                         if (/\/zh-CN\/docs\/Web\/JavaScript\/Reference.*/.test($(this).attr('href'))) dfs($(this).attr('href'))
